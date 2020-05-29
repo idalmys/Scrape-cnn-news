@@ -1,0 +1,66 @@
+<nav class="navbar navbar-expand-md bg-info navbar-dark container-fluid justify-content-center">
+  <!-- Brand -->
+  
+  <!-- Toggler/collapsibe Button -->
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <!-- Navbar links -->
+  <div class="collapse navbar-collapse" id="collapsibleNavbar">
+    <ul class="navbar-nav">
+      <li class="nav-item">
+        <a class="nav-link" href="/">Home</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/saved">Saved Article</a>
+      </li>
+
+      <li class="nav-item">
+        <a class="nav-link btn" id="scrape-articles">Scrape Articles</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link btn" id="clearAll-articles">Clear Articles</a>
+      </li>
+    </ul>
+  </div>
+</nav> 
+<div class="jumbotron">    
+</div>
+<div class="articles text-center ">
+    <h1>Articles</h1>
+</div>
+
+
+{{#if articles}}
+{{#each articles}}
+<div class="card mb-3 mt-2 container">
+    <div class="card-header bg-info">
+        <h5>{{this.title}}</h5>
+    </div>
+    <div class="card-body">
+        <div class="row">
+            <div class="col-3">
+                <p>Image</p>
+            </div>
+            <div class="col-8 text-center">
+                <p>text</p>
+            </div>
+        </div>
+        <div class="row ">
+            <a href="https://www.cnn.com{{this.link}}" type="button" class="btn btn-secondary" target="_blank">Read Article</a>
+            <button class="btn btn-secondary" id="save-article" data-id="{{this._id}}">Save Article</button>
+            
+          
+        </div>
+    </div>
+</div>
+{{/each}}
+{{else}}
+<div class="container">
+    <div class="alert bg-info text-center">
+        <h4>Uh Oh. Looks like we don't have any new articles.</h4>
+    </div>
+    
+</div
+{{/if}}
