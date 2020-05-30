@@ -134,14 +134,12 @@ var thisId = $(this).attr("data-id");
     }
 
   })
-    
-    .then(function (data) {
+  .then(function (data) {
      
       console.log(data);
-      
       $("#note").val("");
       location.reload()
-    })
+  })
     .catch(function (err) {
       console.log( err);
     });
