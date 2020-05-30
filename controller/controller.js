@@ -4,7 +4,8 @@ var axios=require("axios");
 var cheerio= require("cheerio")
 
 var db = require("../models");
-
+var Article= db.Article;
+var Note= db.Note;
 
 //Find Articles into the DB and send it to articles page
 
