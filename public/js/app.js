@@ -123,27 +123,33 @@ $("body").on("click", "#deleteNote" , (event) =>{
 $("body").on("click", "#save-note", function(event) {
     
 var thisId = $(this).attr("data-id");
- console.log("Save id " + thisId)
-  
-  $.ajax({
-    method: "POST",
-    url: "/articles/" + thisId,
-    data: {
-      
-      body: $("#note").val().trim()
-    }
 
-  })
-  .then(function (data) {
-     
-      console.log(data);
-      $("#note").val("");
-      location.reload()
-  })
-    .catch(function (err) {
-      console.log( err);
+  if($("#note").val().trim().length < 1){
+   alert("Must enter a note")
+  }
+  else{
+    $.ajax({
+      method: "POST",
+      url: "/articles/" + thisId,
+      data: {
+       
+        body:$("#note").val().trim()
+      }
+  
+    })
+    .then(function (data) {
+       
+        console.log(data);
+        $("#note").val("");
+        location.reload()
+    })
+      .catch(function (err) {
+        console.log( err);
     });
-    
     $("#modal-note").hide();
+  }
+ 
+  $("#modal-note").show();
+    event.preventDefault();
     
 });
