@@ -2,13 +2,14 @@ var router = require("express").Router();
 var axios=require("axios");
 var cheerio= require("cheerio")
 
-var db = require("../models");
+var Article = require("../models/Article");
+var Note=require("../models/Note")
 
 
 //Find Articles into the DB and send it to articles page
 
 router.get("/",async(req,res)=>{
-    const articles= await db.Article.find({saved : false},(err, result) => {
+    const articles= await Article.find({saved : false},(err, result) => {
       if (err) {
         console.log(err);
       } else {
@@ -23,7 +24,7 @@ router.get("/",async(req,res)=>{
 // Delete all articles
 
 router.get("/clearAll", function(req, res) {
-    db.Article.deleteMany({}, function(err, doc) {
+    Article.deleteMany({}, function(err, doc) {
         if (err) {
           console.log(err);
         } else {
@@ -48,7 +49,7 @@ router.get("/scrape", function(req, res) {
         result.title =$(element).children("a").text().trim();
   
         // Create a new Article using the `result` object built from scraping
-        db.Article.create(result)
+        Article.create(result)
           .then(function(dbArticle) {
             // View the added result in the console
             console.log(dbArticle);
@@ -68,7 +69,7 @@ router.get("/scrape", function(req, res) {
 //Get all Articles with saved status true and render note page
 
 router.get("/saved",async(req,res)=>{
-    const articles= await db.Article.find({saved : true}, err =>  {
+    const articles= await Article.find({saved : true}, err =>  {
       if (err) {
         console.log(err);
       } else {
@@ -82,7 +83,7 @@ router.get("/saved",async(req,res)=>{
 
 // Find an Article and set saved status true
 router.get("/saved/:id", async(req,res) => {   
-    await db.Article.findByIdAndUpdate({_id: req.params.id},{saved:true})
+    await Article.findByIdAndUpdate({_id: req.params.id},{saved:true})
     .then(result => {
        
         res.json(result);
@@ -98,7 +99,7 @@ router.get("/saved/:id", async(req,res) => {
 // Return to false saved status
 router.get("/returnArticle/:id", async(req,res) => {
  
-  await db.Article.findByIdAndUpdate({_id: req.params.id},{saved: false})
+  await Article.findByIdAndUpdate({_id: req.params.id},{saved: false})
   .then(result => {
       
       res.json(result);
@@ -116,14 +117,14 @@ router.get("/returnArticle/:id", async(req,res) => {
 
 router.get("/delete/:id", async(req,res)=>{
   const {id }= req.params;
-  await db.Article.remove({_id : id});
+  await Article.remove({_id : id});
   res.redirect("/saved")
 })
 
 //Delete a note
 router.get("/deletenote/:id", async(req,res)=>{
   const {id }= req.params;
-  await db.Note.findOneAndDelete({_id : id})
+  await Note.findOneAndDelete({_id : id})
   res.redirect("/saved")
 })
 
@@ -131,7 +132,7 @@ router.get("/deletenote/:id", async(req,res)=>{
 
 router.get("/articles/:id", async(req, res) => {
  
-  await db.Article.findById({ _id: req.params.id })
+  await Article.findById({ _id: req.params.id })
    
     .populate("notes")
     .then(function(dbArticle) {
@@ -148,12 +149,12 @@ router.get("/articles/:id", async(req, res) => {
 // Route for saving/updating an Article's associated Note
 router.post("/articles/:id", function(req, res) {
   
-    db.Note.create(req.body)
+    Note.create(req.body)
     .then(function(dbNote) {
       // If a Note was created successfully, find one Article with an `_id` equal to `req.params.id`. Update the Article to be associated with the new Note
       // { new: true } tells the query that we want it to return the updated User -- it returns the original by default
       // Since our mongoose query returns a promise, we can chain another `.then` which receives the result of the query
-      return db.Article.findOneAndUpdate({ _id: req.params.id }, {  $push: { notes: dbNote._id } }, { new: true });
+      return Article.findOneAndUpdate({ _id: req.params.id }, {  $push: { notes: dbNote._id } }, { new: true });
     })
     .then(function(dbArticle) {
       // If we were able to successfully update an Article, send it back to the client

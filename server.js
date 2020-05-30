@@ -4,7 +4,7 @@ var logger=require("morgan");
 var mongoose= require("mongoose");
 
 //Models Instance
-var db=require("./models")
+//var db=require("./models")
 
 //run express
 const app = express();
