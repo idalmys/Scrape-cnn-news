@@ -20,7 +20,7 @@ $("#clearAll-articles").on("click",() =>{
     })
     .then(function (data) {
       console.log(data);
-      
+      location.reload()
     })
 })
 
