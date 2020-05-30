@@ -20,12 +20,13 @@ $("#clearAll-articles").on("click",() =>{
     })
     .then(function (data) {
       console.log(data);
-      location.href = ('/');
+      
     })
 })
 
 $("body").on("click","#close-modal",() => {
   $("#modal-note").hide();
+  location.reload()
 })
 
 
@@ -37,7 +38,7 @@ $("body").on("click", "#save-article", function (event) {
       })
       .then(function (data) {
         console.log(data);
-        location.href = ('/');
+        location.href = ("/");
       })
 })
 
@@ -49,16 +50,13 @@ $("body").on("click", "#return-article", function (event) {
     })
     .then(function (data) {
       console.log(data);
-      location.href = ('/saved');
+      location.href = ("/saved");
     })
 })
 
 
-
-
-
 $("body").on("click", "#make-note", function() {
- 
+  
   var thisId = $(this).attr("data-id");
 
   // Now make an ajax call for the Article
@@ -68,6 +66,16 @@ $("body").on("click", "#make-note", function() {
   })
     // With that done, add the note information to the page
     .then(function (data) {
+
+      //Saved Note Button
+      var saveBtn=$("<button>");
+      saveBtn.attr("data-id",thisId)
+      saveBtn.addClass("btn")
+      saveBtn.addClass("btn-secondary")
+      saveBtn.attr("id","save-note")
+      saveBtn.text("Save Note")
+
+      $(".modal-footer").append(saveBtn);
       $("#modal-note").show();
       console.log(data);
           
@@ -113,10 +121,9 @@ $("body").on("click", "#deleteNote" , (event) =>{
 })
 
 $("body").on("click", "#save-note", function(event) {
-  
-  $("#modal-note").hide();
-  var thisId = $(this).attr("data-id");
- 
+    
+var thisId = $(this).attr("data-id");
+ console.log("Save id " + thisId)
   
   $.ajax({
     method: "POST",
@@ -133,10 +140,12 @@ $("body").on("click", "#save-note", function(event) {
       console.log(data);
       
       $("#note").val("");
+      location.reload()
     })
     .catch(function (err) {
       console.log( err);
     });
     
-  
+    $("#modal-note").hide();
+    
 });

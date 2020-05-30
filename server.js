@@ -16,7 +16,7 @@ app.use(logger("dev"));
 // Connect to the Mongo DB
 var MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/mongo-news";
 
-mongoose.connect(MONGODB_URI);
+mongoose.connect(MONGODB_URI,{ useNewUrlParser: true });
 // Middleware
 
 app.use(express.urlencoded({ extended: true }));
