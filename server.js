@@ -1,42 +1,47 @@
 var express = require("express");
 var exphbs = require("express-handlebars");
 var logger=require("morgan");
-var axios=require("axios");
-var cheerio= require("cheerio")
 var mongoose= require("mongoose");
 
+//MOdels Instance
+var db=require("./models")
 
-
-var app = express();
-var PORT = process.env.PORT || 3000;
+//run express
+const app = express();
+var PORT = process.env.PORT || 8080;
 
 // Use morgan logger for logging requests
 app.use(logger("dev"));
 
-// Connect to the Mongo DB
-mongoose.Promise = Promise;
-var MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/mongo-news";
-
-mongoose.connect(MONGODB_URI);
 // Middleware
-
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
-
-
-// Handlebars
-app.engine("handlebars",exphbs({defaultLayout: "main"}));
-app.set("view engine", "handlebars");
-
-// Routes
-app.use(require("./controller/controller"));
 
 //Public
 app.use(express.static("public"));
 
+// Handlebars
+app.engine(
+    "handlebars",
+    exphbs({
+      defaultLayout: "main"
+    })
+  );
+  app.set("view engine", "handlebars");
+
+// Routes
+app.use(require("./controllers/controller"));
+
+
+
+// Connect to the Mongo DB
+var MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/mongo-news";
+mongoose.connect(MONGODB_URI);
+
+
 // Starting the server, syncing our models ------------------------------------/
-app.listen(PORT,() => {
-    console.log("Port on" + PORT)
+app.listen(PORT,()=>{
+    console.log("Server started on "+ PORT);
 })
     
 module.exports = app;
