@@ -1,8 +1,5 @@
 <nav class="navbar navbar-expand-md bg-info navbar-dark container-fluid">
-  <!-- Brand -->
- 
-
-  <!-- Toggler/collapsibe Button -->
+   <!-- Toggler/collapsibe Button -->
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
     <span class="navbar-toggler-icon"></span>
   </button>
@@ -37,14 +34,13 @@
         <h5>{{this.title}}</h5>
     </div>
     <div class="card-body">
-                        
-        <div class="row ">
+       <div class="row ">
             <a href="https://www.cnn.com{{this.link}}" type="button" class="btn btn-secondary" target="_blank">Read Article</a>
             <button class="btn btn-secondary"  id="return-article" data-id="{{this._id}}">Back to Articles Page</button>
             <a class="btn btn-secondary" id="deleteArticle" href="/delete/{{this._id}}">Delete Article</a>
            <button type="button" class="btn btn-secondary mr-2" id="make-note" data-id="{{this._id}}">Type your note</button>
-          
-        </div>
+       </div>
+      <div>
     </div>
 </div>
 <!--Modal section--->
@@ -54,12 +50,11 @@
       
         <!-- Modal Header -->
         <div class="modal-header">
-                    <h5 class="modal-title">Make a Note</h5>
-                                     
-                     <button type="button" class="close" id="close-modal" aria-label="Close">
-                     <span aria-hidden="true">&times;</span>
-                     </button>
-                 </div>
+            <h5 class="modal-title">Make a Note</h5>
+              <button type="button" class="close" id="close-modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+          </div>
         
         <!-- Modal body -->
         <div class="modal-body">
@@ -73,30 +68,25 @@
             <form > 
                 <div class="form-group">
                     <label for="note">Type your Note Here</label>
-                            <textarea class="form-control" id="note" rows="2"></textarea>
+                    <textarea class="form-control" id="note" rows="2"></textarea>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" id="close-modal" >Close</button>
+                  <button type="button" class="btn btn-secondary" id="close-modal" >Close</button>
                 </div>
-                    
-                </form>
-        </div>
-      </div>
+             </form>
+          </div>
+       </div>
     </div>
   </div>
-  
 </div>
 
-
 {{/each}}
-
 
 {{else}}
 <div class="container">
     <div class="alert bg-info text-center">
         <h4>Uh Oh. Looks like we don't have any articles.</h4>
     </div>
-    
 </div
 
 {{/if}}

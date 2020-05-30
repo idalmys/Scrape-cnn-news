@@ -1,6 +1,4 @@
 <nav class="navbar navbar-expand-md bg-info navbar-dark container-fluid justify-content-center">
-  <!-- Brand -->
-  
   <!-- Toggler/collapsibe Button -->
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
     <span class="navbar-toggler-icon"></span>
@@ -25,13 +23,10 @@
     </ul>
   </div>
 </nav> 
-<div class="jumbotron">    
-</div>
+<div class="jumbotron"> </div>
 <div class="articles text-center ">
     <h1>Articles</h1>
 </div>
-
-
 {{#if articles}}
 {{#each articles}}
 <div class="card mb-3 mt-2 container">
@@ -43,8 +38,6 @@
         <div class="row ">
             <a href="https://www.cnn.com{{this.link}}" type="button" class="btn btn-secondary" target="_blank">Read Article</a>
             <button class="btn btn-secondary" id="save-article" data-id="{{this._id}}">Save Article</button>
-            
-          
         </div>
     </div>
 </div>
@@ -54,6 +47,5 @@
     <div class="alert bg-info text-center">
         <h4>Uh Oh. Looks like we don't have any new articles.</h4>
     </div>
-    
 </div
 {{/if}}

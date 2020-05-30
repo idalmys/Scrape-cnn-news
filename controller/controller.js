@@ -124,8 +124,8 @@ router.get("/delete/:id", async(req,res)=>{
 //Delete a note
 router.get("/deletenote/:id", async(req,res)=>{
   const {id }= req.params;
-  await db.Note.deleteOne({_id : id});
-  //res.redirect("/saved")
+  await db.Note.findOneAndDelete({_id : id})
+  res.redirect("/saved")
 })
 
 // Get an article with his note

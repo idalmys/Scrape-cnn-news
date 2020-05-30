@@ -83,18 +83,18 @@ $("body").on("click", "#make-note", function() {
         for(var i=0 ; i< data.notes.length; i++){
           var div=$("<div>")
           var p=$("<p>");
-          var button=$("<button>")
+          var deletBtn=$("<a>")
          
-          button.addClass("btn");
-          button.addClass("btn-primary")
-          button.attr("id","deleteNote")
-          button.attr("datanote-id", data.notes[i]._id);
-          button.text("Delete");
+          deletBtn.addClass("btn");
+          deletBtn.addClass("btn-primary")
+          deletBtn.attr("id","deleteNote")
+          deletBtn.attr("href","/deletenote/" + data.notes[i]._id);
+          deletBtn.text("Delete");
 
           p.text(data.notes[i].body )
 
           div.append(p);
-          div.append(button)
+          div.append(deletBtn)
           $("#Addnote").append(div);
           
         }
@@ -106,19 +106,8 @@ $("body").on("click", "#make-note", function() {
 
 });
 
-$("body").on("click", "#deleteNote" , (event) =>{
-  var thisId = $(this).attr("datanote-id");
-  console.log("El id es " + thisId )
-  $.ajax({
-    method: "GET",
-    url: "/deletenote/:id" + thisId
-  }).then(data=>{
-    console.log(data)
-  }).catch(function (err) {
-    console.log( err);
-  });
-  
-})
+
+
 
 $("body").on("click", "#save-note", function(event) {
     
