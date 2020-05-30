@@ -3,7 +3,7 @@ var exphbs = require("express-handlebars");
 var logger=require("morgan");
 var mongoose= require("mongoose");
 
-//MOdels Instance
+//Models Instance
 var db=require("./models")
 
 //run express
@@ -14,7 +14,7 @@ var PORT = process.env.PORT || 8080;
 app.use(logger("dev"));
 
 // Middleware
-app.use(express.urlencoded({ extended: true }));
+app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 
 //Public
