@@ -3,8 +3,9 @@ var exphbs = require("express-handlebars");
 var logger=require("morgan");
 var mongoose= require("mongoose");
 
-//Models Instance
-//var db=require("./models")
+
+var Article=require("./models/Article")
+var Note=require("./models/Note")
 
 //run express
 const app = express();
@@ -19,6 +20,8 @@ app.use(express.json());
 
 //Public
 app.use(express.static("public"));
+
+
 
 // Handlebars
 app.engine(
