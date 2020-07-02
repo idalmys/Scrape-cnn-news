@@ -1,3 +1,6 @@
+![scrape](scrape.png)
+
+
 # Scrape CNN NEWS
 Tha app allows to the users view and leave note to the latest news.
 
